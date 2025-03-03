@@ -1,4 +1,4 @@
-﻿using Employee.Infra.EFCore.Abstractions.Interfaces;
+﻿using Employee.Domain.Abstractions.Interfaces;
 using Employee.Infra.EFCore.Extensions;
 using Microsoft.EntityFrameworkCore;
 using NetDevPack.Security.Jwt.Core.Model;

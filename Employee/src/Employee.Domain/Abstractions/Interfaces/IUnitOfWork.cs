@@ -1,4 +1,4 @@
-﻿namespace Employee.Infra.EFCore.Abstractions.Interfaces;
+﻿namespace Employee.Domain.Abstractions.Interfaces;
 
 public interface IUnitOfWork
 {

@@ -1,4 +1,4 @@
-﻿using Employee.Infra.EFCore.Abstractions.Interfaces;
+﻿using Employee.Domain.Abstractions.Interfaces;
 
 namespace Employee.Infra.EFCore;
 

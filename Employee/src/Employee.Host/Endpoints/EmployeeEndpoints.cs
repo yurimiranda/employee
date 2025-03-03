@@ -9,55 +9,77 @@ namespace Microsoft.AspNetCore.Routing;
 
 public sealed class EmployeeEndpoints : ICarterModule
 {
-    public void AddRoutes(IEndpointRouteBuilder endpoints)
+    public void AddRoutes(IEndpointRouteBuilder app)
     {
-        endpoints
-            .MapGet("/api/employee", async (
-                [FromServices] IEmployeeRetrievalUseCase useCase,
-                [AsParameters] GetEmployeesRequest request) =>
-            {
-                var result = await useCase.GetEmployees(request);
-                return result.Match(
-                    response => Results.Ok(response),
-                    error => Results.BadRequest(error));
-            })
-            .WithTags("Employee")
-            .ConfigureRoute<IEnumerable<GetEmployeesResponse>, Error>(
-                StatusCodes.Status200OK,
-                StatusCodes.Status400BadRequest);
+        app.MapGet("/api/employee", async (
+            [FromServices] IEmployeeRetrievalUseCase useCase,
+            [AsParameters] GetEmployeesRequest request) =>
+        {
+            var result = await useCase.GetEmployees(request);
+            return result.Match(
+                response => Results.Ok(response),
+                error => Results.BadRequest(error));
+        })
+        .WithTags("Employee")
+        .ConfigureRoute<IEnumerable<GetEmployeesResponse>, Error>(
+            StatusCodes.Status200OK,
+            StatusCodes.Status400BadRequest);
 
-        endpoints
-            .MapGet("/api/employee/{id}", async (int id, [FromServices] IEmployeeRetrievalUseCase useCase) =>
-            {
-                var result = await useCase.GetEmployee(id);
-                return result.Match(
-                    response => Results.Ok(response),
-                    error => Results.BadRequest(error));
-            })
-            .WithTags("Employee")
-            .ConfigureRoute<IEnumerable<GetEmployeeResponse>, Error>(
-                StatusCodes.Status200OK,
-                StatusCodes.Status400BadRequest);
+        app.MapGet("/api/employee/{id}", async (
+            int id,
+            [FromServices] IEmployeeRetrievalUseCase useCase) =>
+        {
+            var result = await useCase.GetEmployee(id);
+            return result.Match(
+                response => Results.Ok(response),
+                error => Results.BadRequest(error));
+        })
+        .WithTags("Employee")
+        .ConfigureRoute<GetEmployeeResponse, Error>(
+            StatusCodes.Status200OK,
+            StatusCodes.Status400BadRequest);
 
-        endpoints
-            .MapPost("/api/employee", async (CreateEmployeeRequest employee) => await controller.AddEmployee(employee))
-            .WithTags("Employee")
-            .ConfigureRoute<IEnumerable<CreateEmployeeResponse>, Error>(
-                StatusCodes.Status200OK,
-                StatusCodes.Status400BadRequest);
+        app.MapPost("/api/employee", async (
+            [FromServices] IEmployeeCreationUseCase useCase,
+            [FromBody] CreateEmployeeRequest employee) =>
+        {
+            var result = await useCase.AddEmployee(employee);
+            return result.Match(
+                response => Results.Ok(response),
+                error => Results.BadRequest(error));
+        })
+        .WithTags("Employee")
+        .ConfigureRoute<CreateEmployeeResponse, Error>(
+            StatusCodes.Status200OK,
+            StatusCodes.Status400BadRequest);
 
-        endpoints
-            .MapPatch("/api/employee/{id}", async (int id, UpdateEmployeeRequest employee) => await controller.UpdateEmployee(id, employee))
-            .WithTags("Employee")
-            .ConfigureRoute<IEnumerable<UpdateEmployeeResponse>, Error>(
-                StatusCodes.Status200OK,
-                StatusCodes.Status400BadRequest);
+        app.MapPatch("/api/employee/{id}", async (
+            int id,
+            [FromServices] IEmployeeUpdateUseCase useCase,
+            [FromBody] UpdateEmployeeRequest employee) =>
+        {
+            var result = await useCase.UpdateEmployee(id, employee);
+            return result.Match(
+                response => Results.Ok(response),
+                error => Results.BadRequest(error));
+        })
+        .WithTags("Employee")
+        .ConfigureRoute<UpdateEmployeeResponse, Error>(
+            StatusCodes.Status200OK,
+            StatusCodes.Status400BadRequest);
 
-        endpoints
-            .MapDelete("/api/employee/{id}", async (int id) => await controller.DeleteEmployee(id))
-            .WithTags("Employee")
-            .ConfigureRoute<IEnumerable<DeleteEmployeeResponse>, Error>(
-                StatusCodes.Status200OK,
-                StatusCodes.Status400BadRequest);
+        app.MapDelete("/api/employee/{id}", async (
+            int id,
+            [FromServices] IEmployeeDeletionUseCase useCase) =>
+        {
+            var result = await useCase.DeleteEmployee(id);
+            return result.Match(
+                response => Results.Ok(response),
+                error => Results.BadRequest(error));
+        })
+        .WithTags("Employee")
+        .ConfigureRoute<DeleteEmployeeResponse, Error>(
+            StatusCodes.Status200OK,
+            StatusCodes.Status400BadRequest);
     }
 }
