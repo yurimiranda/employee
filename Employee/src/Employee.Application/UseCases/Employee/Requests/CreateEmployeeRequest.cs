@@ -10,6 +10,7 @@ public class CreateEmployeeRequest
     public int PositionRoleId { get; set; }
     public DateTime BirthDate { get; set; }
     public IEnumerable<CreatePhoneRequest> Phones { get; set; }
+    public string Password { get; set; }
 
     public class CreatePhoneRequest
     {

@@ -11,7 +11,7 @@ public class Employee : Entity<Guid>
     public string ImmediateSupervisor { get; set; }
     public PositionRole Position { get; set; }
     public DateTime BirthDate { get; set; }
-    public IEnumerable<Phone> Phones { get; set; }
+    public ICollection<Phone> Phones { get; set; }
 
     public bool OfLegalAge => BirthDate.AddYears(18) <= DateTime.Now;
 }

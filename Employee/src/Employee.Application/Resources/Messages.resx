@@ -117,7 +117,40 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Length" xml:space="preserve">
+    <value>O campo deve possuir um tamanho de {0} caracteres/dígitos.</value>
+  </data>
+  <data name="LengthRange" xml:space="preserve">
+    <value>O campo deve possuir entre {0} e {1} caracteres/dígitos.</value>
+  </data>
+  <data name="MoreThanOnePrimaryPhone" xml:space="preserve">
+    <value>Mais de um telefone principal foi informado.</value>
+  </data>
+  <data name="LowerCaseRequired" xml:space="preserve">
+    <value>O campo deve conter ao menos uma letra minúscula.</value>
+  </data>
+  <data name="NumbersRequired" xml:space="preserve">
+    <value>O campo deve conter números.</value>
+  </data>
+  <data name="SymbolsRequired" xml:space="preserve">
+    <value>O campo deve conter ao menos um carácter especial.</value>
+  </data>
+  <data name="UpperCaseRequired" xml:space="preserve">
+    <value>O campo deve conter ao menos uma letra maiúscula.</value>
+  </data>
   <data name="NotEmpty" xml:space="preserve">
-    <value>O campo '{0}' é de preenchimento obrigatório.</value>
+    <value>O campo é de preenchimento obrigatório.</value>
+  </data>
+  <data name="NotGreaterThan" xml:space="preserve">
+    <value>O campo não pode ser maior que {0} caracteres/dígitos.</value>
+  </data>
+  <data name="NotLessThan" xml:space="preserve">
+    <value>O campo não pode ser menor que {0} caracteres/dígitos.</value>
+  </data>
+  <data name="PrimaryPhoneRequired" xml:space="preserve">
+    <value>Telefone principal deve ser informado.</value>
+  </data>
+  <data name="NotExists" xml:space="preserve">
+    <value>O valor informado não existe.</value>
   </data>
 </root>

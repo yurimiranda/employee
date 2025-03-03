@@ -61,11 +61,110 @@ namespace Employee.Application.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to O campo &apos;{0}&apos; é de preenchimento obrigatório..
+        ///   Looks up a localized string similar to O campo deve possuir um tamanho de {0} caracteres/dígitos..
+        /// </summary>
+        public static string Length {
+            get {
+                return ResourceManager.GetString("Length", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to O campo deve possuir entre {0} e {1} caracteres/dígitos..
+        /// </summary>
+        public static string LengthRange {
+            get {
+                return ResourceManager.GetString("LengthRange", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to O campo deve conter ao menos uma letra minúscula..
+        /// </summary>
+        public static string LowerCaseRequired {
+            get {
+                return ResourceManager.GetString("LowerCaseRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mais de um telefone principal foi informado..
+        /// </summary>
+        public static string MoreThanOnePrimaryPhone {
+            get {
+                return ResourceManager.GetString("MoreThanOnePrimaryPhone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to O campo é de preenchimento obrigatório..
         /// </summary>
         public static string NotEmpty {
             get {
                 return ResourceManager.GetString("NotEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to O valor informado não existe..
+        /// </summary>
+        public static string NotExists {
+            get {
+                return ResourceManager.GetString("NotExists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to O campo não pode ser maior que {0} caracteres/dígitos..
+        /// </summary>
+        public static string NotGreaterThan {
+            get {
+                return ResourceManager.GetString("NotGreaterThan", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to O campo não pode ser menor que {0} caracteres/dígitos..
+        /// </summary>
+        public static string NotLessThan {
+            get {
+                return ResourceManager.GetString("NotLessThan", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to O campo deve conter números..
+        /// </summary>
+        public static string NumbersRequired {
+            get {
+                return ResourceManager.GetString("NumbersRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Telefone principal deve ser informado..
+        /// </summary>
+        public static string PrimaryPhoneRequired {
+            get {
+                return ResourceManager.GetString("PrimaryPhoneRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to O campo deve conter ao menos um carácter especial..
+        /// </summary>
+        public static string SymbolsRequired {
+            get {
+                return ResourceManager.GetString("SymbolsRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to O campo deve conter ao menos uma letra maiúscula..
+        /// </summary>
+        public static string UpperCaseRequired {
+            get {
+                return ResourceManager.GetString("UpperCaseRequired", resourceCulture);
             }
         }
     }

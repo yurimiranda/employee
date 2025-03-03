@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Employee.Infra.EFCore.Abstractions;
 
-public abstract class Repository<TContext, TEntity> : IRepository<TEntity>
+public abstract class Repository<TContext, TEntity, TKey> : IRepository<TEntity, TKey> where TKey : struct, IEquatable<TKey>
     where TContext : DbContext
-    where TEntity : Entity
+    where TEntity : Entity<TKey>
 {
     protected readonly TContext Context;
 
@@ -40,13 +40,13 @@ public abstract class Repository<TContext, TEntity> : IRepository<TEntity>
         return Task.CompletedTask;
     }
 
-    public async Task<bool> Exists(int id, CancellationToken cancellationToken = default)
+    public async Task<bool> Exists(TKey id, CancellationToken cancellationToken = default)
     {
         var dbSet = Context.Set<TEntity>();
         return await dbSet.AnyAsync(m => m.Id.Equals(id), cancellationToken);
     }
 
-    public async Task<TEntity> Get(int id, CancellationToken cancellationToken = default)
+    public async Task<TEntity> Get(TKey id, CancellationToken cancellationToken = default)
     {
         return await Context.Set<TEntity>()
             .Where(d => d.Id.Equals(id))

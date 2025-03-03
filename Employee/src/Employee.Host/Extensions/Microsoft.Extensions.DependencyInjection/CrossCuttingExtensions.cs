@@ -23,6 +23,7 @@ public static class CrossCuttingExtensions
         services.AddValidation();
         services.AddMapsterService();
         services.AddAuthentications(configuration);
+        services.AddEFCore(configuration);
         return services;
     }
 }
