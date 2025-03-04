@@ -55,7 +55,7 @@ public class UpdateEmployeeValidator : AbstractValidator<UpdateEmployeeRequest>
         return true;
     }
 
-    public class UpdatePhoneValidator : PhoneValidator<UpdateEmployeeRequest.UpdatePhoneRequest>
+    private sealed class UpdatePhoneValidator : PhoneValidator<UpdateEmployeeRequest.UpdatePhoneRequest>
     {
         public UpdatePhoneValidator(IPhoneRepository repository)
         {

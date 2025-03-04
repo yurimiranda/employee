@@ -32,9 +32,6 @@ namespace Employee.Infra.EFCore.Mappings
             builder.Property(e => e.BirthDate)
                 .IsRequired();
 
-            builder.Property(e => e.OfLegalAge)
-                .IsRequired();
-
             builder.HasOne(e => e.Position)
                 .WithMany()
                 .HasForeignKey(e => e.PositionId)

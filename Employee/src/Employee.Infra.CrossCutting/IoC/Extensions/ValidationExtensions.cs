@@ -7,7 +7,10 @@ public static class ValidationExtensions
 {
     public static IServiceCollection AddValidation(this IServiceCollection services)
     {
-        services.AddValidatorsFromAssembly(typeof(UseCaseBase).Assembly);
+        services.AddValidatorsFromAssembly(
+            typeof(UseCaseBase).Assembly,
+            filter: s => !s.ValidatorType.IsGenericType
+        );
         return services;
     }
 }

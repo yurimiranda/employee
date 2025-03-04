@@ -4,9 +4,9 @@ using FluentValidation;
 
 namespace Employee.Application.UseCases.Employee.Validations;
 
-public class PhoneValidator<TPhoneRequest> : AbstractValidator<TPhoneRequest> where TPhoneRequest : Phone
+internal abstract class PhoneValidator<TPhoneRequest> : AbstractValidator<TPhoneRequest> where TPhoneRequest : Phone
 {
-    public PhoneValidator()
+    protected PhoneValidator()
     {
         RuleFor(r => r.AreaCode)
             .NotEmpty().WithMessage(Messages.NotEmpty)

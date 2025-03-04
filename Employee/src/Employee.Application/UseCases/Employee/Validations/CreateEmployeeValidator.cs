@@ -65,7 +65,7 @@ public class CreateEmployeeValidator : AbstractValidator<CreateEmployeeRequest>
         return true;
     }
 
-    public class CreatePhoneValidator : PhoneValidator<CreateEmployeeRequest.CreatePhoneRequest>
+    private sealed class CreatePhoneValidator : PhoneValidator<CreateEmployeeRequest.CreatePhoneRequest>
     {
     }
 }

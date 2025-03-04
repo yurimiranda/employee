@@ -43,9 +43,10 @@ public static class SerilogExtensions
                 {
                     httpContext.Request.EnableBuffering();
                     var reader = new StreamReader(httpContext.Request.Body);
-                    var body = reader.ReadToEnd();
+                    var body = reader.ReadToEndAsync();
+                    body.Wait();
                     httpContext.Request.Body.Position = 0;
-                    events.Add(new LogEventProperty("RequestBody", new ScalarValue(body)));
+                    events.Add(new LogEventProperty("RequestBody", new ScalarValue(body.Result)));
                 }
                 else
                 {
@@ -56,9 +57,10 @@ public static class SerilogExtensions
                 {
                     httpContext.Response.Body.Seek(0, SeekOrigin.Begin);
                     var reader = new StreamReader(httpContext.Response.Body);
-                    var body = reader.ReadToEnd();
+                    var body = reader.ReadToEndAsync();
+                    body.Wait();
                     httpContext.Response.Body.Seek(0, SeekOrigin.Begin);
-                    events.Add(new LogEventProperty("ResponseBody", new ScalarValue(body)));
+                    events.Add(new LogEventProperty("ResponseBody", new ScalarValue(body.Result)));
                 }
                 else
                 {
