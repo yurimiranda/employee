@@ -10,8 +10,8 @@ public class GetEmployeeResponse : IRegister
     public string Email { get; set; }
     public string Document { get; set; }
     public string ImmediateSupervisor { get; set; }
-    public int PositionRoleId { get; set; }
-    public string PositionRole { get; set; }
+    public int PositionId { get; set; }
+    public string PositionName { get; set; }
     public DateTime BirthDate { get; set; }
     public bool OfLegalAge { get; set; }
     public IEnumerable<GetEmployeePhoneResponse> Phones { get; set; }
@@ -20,7 +20,7 @@ public class GetEmployeeResponse : IRegister
     {
         config.ForType<EmployeeModel, GetEmployeeResponse>()
             .Map(dest => dest.Name, src => src.Name + " " + src.Surname)
-            .Map(dest => dest.PositionRole, src => src.Position.Name);
+            .Map(dest => dest.PositionName, src => src.Position.Name);
     }
 
     public class GetEmployeePhoneResponse : PhoneResponse

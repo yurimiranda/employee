@@ -24,6 +24,8 @@ public static class CrossCuttingExtensions
         services.AddMapsterService();
         services.AddAuthentications(configuration);
         services.AddEFCore(configuration);
+        services.AddUserContext();
+        services.AddMemoryCache();
         return services;
     }
 }

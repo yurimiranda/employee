@@ -9,7 +9,7 @@ public class UpdateEmployeeResponse
     public string Surname { get; set; }
     public string Email { get; set; }
     public string ImmediateSupervisor { get; set; }
-    public int PositionRoleId { get; set; }
+    public int PositionId { get; set; }
     public IEnumerable<UpdatePhoneResponse> Phones { get; set; }
 
     public class UpdatePhoneResponse : Phone

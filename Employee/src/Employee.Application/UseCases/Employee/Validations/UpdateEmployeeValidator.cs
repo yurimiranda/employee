@@ -1,6 +1,8 @@
 ﻿using Employee.Application.Resources;
 using Employee.Application.UseCases.Employee.Requests;
+using Employee.Domain.Enums;
 using Employee.Domain.Repositories;
+using Employee.Domain.Services;
 using FluentValidation;
 
 namespace Employee.Application.UseCases.Employee.Validations;
@@ -8,8 +10,9 @@ namespace Employee.Application.UseCases.Employee.Validations;
 public class UpdateEmployeeValidator : AbstractValidator<UpdateEmployeeRequest>
 {
     public UpdateEmployeeValidator(
-        IPositionRoleRepository roleRepository,
-        IPhoneRepository phoneRepository)
+        IPositionRepository roleRepository,
+        IPhoneRepository phoneRepository,
+        IUserContextAccessor userContext)
     {
         ClassLevelCascadeMode = CascadeMode.Stop;
 
@@ -26,9 +29,13 @@ public class UpdateEmployeeValidator : AbstractValidator<UpdateEmployeeRequest>
         RuleFor(r => r.ImmediateSupervisor)
             .NotEmpty().WithMessage(Messages.NotEmpty);
 
-        RuleFor(r => r.PositionRoleId)
+        RuleFor(r => r.PositionId)
             .NotEmpty().WithMessage(Messages.NotEmpty)
             .MustAsync(roleRepository.Exists).WithMessage(Messages.NotExists);
+
+        RuleFor(r => r.Role)
+            .IsInEnum()
+            .Must((req, role) => HasLowerPermissions(role, userContext)).WithMessage(Messages.EmployeeInvalidRole);
 
         RuleFor(r => r.Phones).Cascade(CascadeMode.Stop)
             .Must(p => p.Any(x => x.IsPrimary)).WithMessage(Messages.PrimaryPhoneRequired)
@@ -36,6 +43,16 @@ public class UpdateEmployeeValidator : AbstractValidator<UpdateEmployeeRequest>
 
         RuleForEach(r => r.Phones).Cascade(CascadeMode.Stop)
             .SetValidator(new UpdatePhoneValidator(phoneRepository));
+    }
+
+    private static bool HasLowerPermissions(Role employeeRole, IUserContextAccessor userContext)
+    {
+        var userRole = userContext.UserContext.Role;
+
+        if (employeeRole < userRole)
+            return false;
+
+        return true;
     }
 
     public class UpdatePhoneValidator : PhoneValidator<UpdateEmployeeRequest.UpdatePhoneRequest>

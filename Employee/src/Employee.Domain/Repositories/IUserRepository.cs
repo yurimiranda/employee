@@ -6,4 +6,5 @@ namespace Employee.Domain.Repositories;
 public interface IUserRepository : IRepository<UserModel, Guid>
 {
     Task<UserModel> GetByEmployee(Guid id);
+    Task<UserContextModel> GetUserContext(Guid id);
 }

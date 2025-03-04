@@ -39,7 +39,8 @@ public class EmployeeCreationUseCase(
             EmailConfirmed = true,
             Active = true,
             EmployeeId = model.Id,
-            Password = request.Password
+            Password = request.Password,
+            Role = request.Role
         };
 
         await employeeRepository.Insert(model);

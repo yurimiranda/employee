@@ -162,4 +162,7 @@
   <data name="InvalidValue" xml:space="preserve">
     <value>O valor informado é inválido.</value>
   </data>
+  <data name="EmployeeInvalidRole" xml:space="preserve">
+    <value>Funcionário não pode possuir permissões superiores que as do usuário logado.</value>
+  </data>
 </root>

@@ -9,7 +9,7 @@ using Mapster;
 namespace Employee.Application.UseCases.Employee;
 
 public class EmployeeRetrievalUseCase(
-    IPositionRoleRepository positionRoleRepository,
+    IPositionRepository positionRepository,
     IEmployeeRepository employeeRepository,
     IPhoneRepository phoneRepository) : UseCaseBase, IEmployeeRetrievalUseCase
 {
@@ -19,8 +19,8 @@ public class EmployeeRetrievalUseCase(
         if (employee is null)
             return Error.Throw("Employee.NotFound", string.Format(Messages.NotFound, "Funcionário"));
 
-        var positionRole = await positionRoleRepository.Get(employee.PositionRoleId);
-        employee.Position = positionRole;
+        var position = await positionRepository.Get(employee.PositionId);
+        employee.Position = position;
 
         var phones = await phoneRepository.GetByEmployee(employee.Id);
         employee.Phones = phones;

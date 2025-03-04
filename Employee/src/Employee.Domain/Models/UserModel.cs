@@ -1,4 +1,5 @@
 ﻿using Employee.Domain.Abstractions;
+using Employee.Domain.Enums;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -6,6 +7,7 @@ namespace Employee.Domain.Models;
 
 public class UserModel : Entity<Guid>
 {
+    public Role Role { get; set; }
     public string Username { get; set; }
     public bool EmailConfirmed { get; set; }
     public Guid EmployeeId { get; set; }

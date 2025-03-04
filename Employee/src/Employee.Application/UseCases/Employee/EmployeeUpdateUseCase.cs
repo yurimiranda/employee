@@ -33,6 +33,7 @@ public class EmployeeUpdateUseCase(
 
         var user = await userRepository.GetByEmployee(employee.Id);
         user.Username = employee.Email;
+        user.Role = request.Role;
         await userRepository.Update(user);
 
         await unitOfWork.Commit();

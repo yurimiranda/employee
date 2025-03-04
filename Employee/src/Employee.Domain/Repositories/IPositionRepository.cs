@@ -3,6 +3,6 @@ using Employee.Domain.Models;
 
 namespace Employee.Domain.Repositories;
 
-public interface IPositionRoleRepository : IRepository<PositionRoleModel, int>
+public interface IPositionRepository : IRepository<PositionModel, int>
 {
 }

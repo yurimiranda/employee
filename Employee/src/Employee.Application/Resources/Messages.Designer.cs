@@ -61,6 +61,15 @@ namespace Employee.Application.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Funcionário não pode possuir permissões superiores ao usuário logado..
+        /// </summary>
+        public static string EmployeeInvalidRole {
+            get {
+                return ResourceManager.GetString("EmployeeInvalidRole", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Funcionário deve ser maior de idade..
         /// </summary>
         public static string EmployeeUnderage {
