@@ -29,7 +29,7 @@ public partial class ApplicationDbContext : DbContext, ISecurityKeyContext
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
 
         var entityTypes = modelBuilder.Model.GetEntityTypes()
-            .Where(type => type.ClrType.GetInterfaces().Contains(typeof(IEntity<>)));
+            .Where(type => type.ClrType.GetInterfaces().Contains(typeof(ILogicalDeletion)));
 
         foreach (var type in entityTypes)
         {

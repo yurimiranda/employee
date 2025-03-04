@@ -17,7 +17,7 @@ public static class EfFilterExtensions
                .Single(t => t.IsGenericMethod && t.Name == "SetSoftDeleteFilter");
 
     public static void SetSoftDeleteFilter<TEntity>(this ModelBuilder modelBuilder)
-        where TEntity : class, IEntity<>
+        where TEntity : class, ILogicalDeletion
     {
         modelBuilder.Entity<TEntity>().HasQueryFilter(x => x.Active);
     }
