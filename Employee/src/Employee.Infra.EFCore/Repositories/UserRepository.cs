@@ -23,4 +23,15 @@ public class UserRepository(ApplicationDbContext context)
             .ProjectToType<UserContextModel>()
             .FirstOrDefaultAsync();
     }
+
+    public async Task UpdatePassword(Guid id, string password)
+    {
+        var user = await Context.Users.FindAsync(id);
+        if (user is not null)
+        {
+            user.Password = password;
+            Context.Entry(user).Property(u => u.Password).IsModified = true;
+            await Context.SaveChangesAsync();
+        }
+    }
 }

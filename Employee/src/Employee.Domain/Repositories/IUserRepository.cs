@@ -7,4 +7,5 @@ public interface IUserRepository : IRepository<UserModel, Guid>
 {
     Task<UserModel> GetByEmployee(Guid id);
     Task<UserContextModel> GetUserContext(Guid id);
+    Task UpdatePassword(Guid id, string password);
 }

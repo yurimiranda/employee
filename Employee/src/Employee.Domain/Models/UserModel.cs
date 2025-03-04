@@ -1,5 +1,6 @@
 ﻿using Employee.Domain.Abstractions;
 using Employee.Domain.Enums;
+using Employee.Domain.Extensions;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -39,6 +40,8 @@ public class UserModel : Entity<Guid>
     {
         if (string.IsNullOrEmpty(password))
             return null;
+        if (password.Contains(_delimiter) && password.Split(_delimiter)[0].IsBase64())
+            return password;
 
         var salt = RandomNumberGenerator.GetBytes(_keySize);
         var hash = Rfc2898DeriveBytes.Pbkdf2(
