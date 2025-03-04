@@ -10,13 +10,13 @@ public class GetEmployeesValidator : AbstractValidator<GetEmployeesRequest>
     public GetEmployeesValidator()
     {
         RuleFor(r => r.Email)
-            .NotEmpty().WithMessage(Messages.NotEmpty)
-            .EmailAddress();
+            .EmailAddress()
+                .When(r => !string.IsNullOrEmpty(r.Email), ApplyConditionTo.CurrentValidator);
 
         RuleFor(r => r.Document)
-            .NotEmpty().WithMessage(Messages.NotEmpty)
             .Length(11).WithMessage(string.Format(Messages.Length, "11"))
-            .Must(CpfValidation.Validate).WithMessage(Messages.InvalidValue);
+            .Must(CpfValidation.Validate).WithMessage(Messages.InvalidValue)
+                .When(r => !string.IsNullOrEmpty(r.Document));
 
         RuleFor(r => r.Page)
             .NotEmpty().WithMessage(Messages.NotEmpty);

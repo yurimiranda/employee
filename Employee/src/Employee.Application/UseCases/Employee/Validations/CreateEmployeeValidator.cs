@@ -27,7 +27,8 @@ public class CreateEmployeeValidator : AbstractValidator<CreateEmployeeRequest>
         RuleFor(r => r.Document)
             .NotEmpty().WithMessage(Messages.NotEmpty)
             .Length(11).WithMessage(string.Format(Messages.Length, "11"))
-            .Must(CpfValidation.Validate).WithMessage(Messages.InvalidValue);
+            .Must(CpfValidation.Validate).WithMessage(Messages.InvalidValue)
+                .When(r => !string.IsNullOrEmpty(r.Document), ApplyConditionTo.CurrentValidator);
 
         RuleFor(r => r.ImmediateSupervisor)
             .NotEmpty().WithMessage(Messages.NotEmpty);
@@ -47,12 +48,13 @@ public class CreateEmployeeValidator : AbstractValidator<CreateEmployeeRequest>
             .IsInEnum()
             .Must((req, role) => HasLowerPermissions(role, userContext)).WithMessage(Messages.EmployeeInvalidRole);
 
-        RuleForEach(r => r.Phones).Cascade(CascadeMode.Stop)
-            .SetValidator(new CreatePhoneValidator());
-
         RuleFor(r => r.Phones).Cascade(CascadeMode.Stop)
+            .NotEmpty().WithMessage(Messages.NotEmpty)
             .Must(p => p.Any(x => x.IsPrimary)).WithMessage(Messages.PrimaryPhoneRequired)
             .Must(p => p.Count(x => x.IsPrimary) == 1).WithMessage(Messages.MoreThanOnePrimaryPhone);
+
+        RuleForEach(r => r.Phones).Cascade(CascadeMode.Stop)
+            .SetValidator(new CreatePhoneValidator());
     }
 
     private static bool HasLowerPermissions(Role employeeRole, IUserContextAccessor userContext)

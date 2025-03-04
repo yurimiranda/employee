@@ -153,10 +153,10 @@ namespace Employee.Infra.EFCore.Migrations
 
             migrationBuilder.InsertData(
                 table: "User",
-                columns: ["Id", "Role", "Username", "EmailConfirmed", "EmployeeId", "Password", "Active"],
+                columns: ["Id", "Role", "Username", "EmailConfirmed", "EmployeeId", "Password", "Active"], // Password = Teste@1234
                 values:
                 [
-                    Guid.NewGuid(), 1, "john.doe@example.com", true, employeeId, "hashedpassword", true
+                    Guid.NewGuid(), 1, "john.doe@example.com", true, employeeId, "y4rYMzvZKybF3EYhmDC5GPg6GOm4ouaTH+LSJaOukBKQx8ISQqBerPUnFtBoMxLqyBaY58zZ91GIVH5+LdMzkg==;JMHPtcbEa02lvu+gUePmYkD0vZCkUMRZip+EwZrka6AsE/yhVkfR5ou4dI3P5K07zxjkqNQygYHTfFQqkUL+Hg==", true
                 ]);
         }
 

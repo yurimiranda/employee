@@ -11,54 +11,55 @@ internal class PasswordValidator<T> : PropertyValidator<T, string>, IPasswordVal
 
     public override bool IsValid(ValidationContext<T> context, string value)
     {
+        var isValid = true;
         if (string.IsNullOrWhiteSpace(value))
         {
             context.AddFailure(Messages.NotEmpty);
-            return false;
+            isValid = false;
         }
 
         if (value.Length < 8)
         {
             context.AddFailure(string.Format(Messages.NotLessThan, "8"));
-            return false;
+            isValid = false;
         }
 
         if (value.Length > 20)
         {
             context.AddFailure(string.Format(Messages.NotGreaterThan, "20"));
-            return false;
+            isValid = false;
         }
 
         if (!value.Any(char.IsUpper))
         {
             context.AddFailure(Messages.UpperCaseRequired);
-            return false;
+            isValid = false;
         }
 
         if (!value.Any(char.IsLower))
         {
             context.AddFailure(Messages.LowerCaseRequired);
-            return false;
+            isValid = false;
         }
 
         if (!value.Any(char.IsNumber))
         {
             context.AddFailure(Messages.NumbersRequired);
-            return false;
+            isValid = false;
         }
 
-        if (!value.Any(char.IsSymbol))
+        if (!value.Any(char.IsSymbol) && !value.Any(char.IsPunctuation))
         {
             context.AddFailure(Messages.SymbolsRequired);
-            return false;
+            isValid = false;
         }
 
-        return true;
+        return isValid;
     }
 
     protected override string GetDefaultMessageTemplate(string errorCode)
     {
-        return null;
+        return string.Empty;
     }
 }
 
