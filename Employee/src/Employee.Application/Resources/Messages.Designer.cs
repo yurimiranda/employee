@@ -61,6 +61,15 @@ namespace Employee.Application.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Funcionário deve ser maior de idade..
+        /// </summary>
+        public static string EmployeeUnderage {
+            get {
+                return ResourceManager.GetString("EmployeeUnderage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to O campo deve possuir um tamanho de {0} caracteres/dígitos..
         /// </summary>
         public static string Length {

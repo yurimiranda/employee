@@ -4,16 +4,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Employee.Infra.EFCore.Abstractions;
 
-public abstract class Repository<TContext, TEntity, TKey> : IRepository<TEntity, TKey> where TKey : struct, IEquatable<TKey>
+public abstract class Repository<TContext, TEntity, TKey>(TContext context)
+    : IRepository<TEntity, TKey>
+    where TKey : struct, IEquatable<TKey>
     where TContext : DbContext
     where TEntity : Entity<TKey>
 {
-    protected readonly TContext Context;
-
-    protected Repository(TContext context)
-    {
-        Context = context;
-    }
+    protected readonly TContext Context = context;
 
     public Task Delete(TEntity entity, CancellationToken cancellationToken = default)
     {

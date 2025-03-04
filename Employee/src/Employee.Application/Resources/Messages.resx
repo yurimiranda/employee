@@ -153,4 +153,7 @@
   <data name="NotExists" xml:space="preserve">
     <value>O valor informado não existe.</value>
   </data>
+  <data name="EmployeeUnderage" xml:space="preserve">
+    <value>Funcionário deve ser maior de idade.</value>
+  </data>
 </root>
