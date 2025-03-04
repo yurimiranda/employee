@@ -1,14 +1,15 @@
-﻿using DocumentValidator;
-using Employee.Application.Resources;
+﻿using Employee.Application.Resources;
 using Employee.Application.UseCases.Employee.Requests;
 using Employee.Domain.Repositories;
 using FluentValidation;
 
 namespace Employee.Application.UseCases.Employee.Validations;
 
-public class CreateEmployeeValidator : AbstractValidator<CreateEmployeeRequest>
+public class UpdateEmployeeValidator : AbstractValidator<UpdateEmployeeRequest>
 {
-    public CreateEmployeeValidator(IPositionRoleRepository roleRepository)
+    public UpdateEmployeeValidator(
+        IPositionRoleRepository roleRepository,
+        IPhoneRepository phoneRepository)
     {
         ClassLevelCascadeMode = CascadeMode.Stop;
 
@@ -22,11 +23,6 @@ public class CreateEmployeeValidator : AbstractValidator<CreateEmployeeRequest>
             .NotEmpty().WithMessage(Messages.NotEmpty)
             .EmailAddress();
 
-        RuleFor(r => r.Document)
-            .NotEmpty().WithMessage(Messages.NotEmpty)
-            .Length(11).WithMessage(string.Format(Messages.Length, "11"))
-            .Must(CpfValidation.Validate).WithMessage(Messages.InvalidValue);
-
         RuleFor(r => r.ImmediateSupervisor)
             .NotEmpty().WithMessage(Messages.NotEmpty);
 
@@ -34,22 +30,21 @@ public class CreateEmployeeValidator : AbstractValidator<CreateEmployeeRequest>
             .NotEmpty().WithMessage(Messages.NotEmpty)
             .MustAsync(roleRepository.Exists).WithMessage(Messages.NotExists);
 
-        RuleFor(r => r.BirthDate).Cascade(CascadeMode.Stop)
-            .NotEmpty().WithMessage(Messages.NotEmpty)
-            .NotEqual(DateTime.MinValue).WithMessage(Messages.NotEmpty);
-
-        RuleFor(r => r.Password)
-            .EnsureValidPassword();
-
-        RuleForEach(r => r.Phones).Cascade(CascadeMode.Stop)
-            .SetValidator(new CreatePhoneValidator());
-
         RuleFor(r => r.Phones).Cascade(CascadeMode.Stop)
             .Must(p => p.Any(x => x.IsPrimary)).WithMessage(Messages.PrimaryPhoneRequired)
             .Must(p => p.Count(x => x.IsPrimary) == 1).WithMessage(Messages.MoreThanOnePrimaryPhone);
+
+        RuleForEach(r => r.Phones).Cascade(CascadeMode.Stop)
+            .SetValidator(new UpdatePhoneValidator(phoneRepository));
     }
 
-    public class CreatePhoneValidator : PhoneValidator<CreateEmployeeRequest.CreatePhoneRequest>
+    public class UpdatePhoneValidator : PhoneValidator<UpdateEmployeeRequest.UpdatePhoneRequest>
     {
+        public UpdatePhoneValidator(IPhoneRepository repository)
+        {
+            RuleFor(r => r.Id)
+                .NotEmpty().WithMessage(Messages.NotEmpty)
+                .MustAsync(repository.Exists).WithMessage(Messages.NotExists);
+        }
     }
 }

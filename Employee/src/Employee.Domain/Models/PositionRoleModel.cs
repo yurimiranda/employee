@@ -2,13 +2,13 @@
 
 namespace Employee.Domain.Models;
 
-public class PositionRole : Entity<int>
+public class PositionRoleModel : Entity<int>
 {
     public string Name { get; set; }
     public string Description { get; set; }
     public int Level { get; set; }
 
-    public PositionRole(int id)
+    public PositionRoleModel(int id)
     {
         Id = id;
     }

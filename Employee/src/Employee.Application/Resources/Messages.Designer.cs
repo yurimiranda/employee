@@ -70,6 +70,15 @@ namespace Employee.Application.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to O valor informado é inválido..
+        /// </summary>
+        public static string InvalidValue {
+            get {
+                return ResourceManager.GetString("InvalidValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to O campo deve possuir um tamanho de {0} caracteres/dígitos..
         /// </summary>
         public static string Length {
@@ -120,6 +129,15 @@ namespace Employee.Application.Resources {
         public static string NotExists {
             get {
                 return ResourceManager.GetString("NotExists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} não encontrado..
+        /// </summary>
+        public static string NotFound {
+            get {
+                return ResourceManager.GetString("NotFound", resourceCulture);
             }
         }
         

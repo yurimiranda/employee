@@ -2,6 +2,7 @@ using Carter;
 using Employee.Application.Interfaces.UseCases;
 using Employee.Application.UseCases.Employee.Requests;
 using Employee.Application.UseCases.Employee.Responses;
+using Employee.Domain.Pagination;
 using Employee.Domain.ResultPattern;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,7 +13,7 @@ public sealed class EmployeeEndpoints : ICarterModule
     public void AddRoutes(IEndpointRouteBuilder app)
     {
         app.MapGet("/api/employee", async (
-            [FromServices] IEmployeeRetrievalUseCase useCase,
+            [FromServices] IEmployeePagedRetrievalUseCase useCase,
             [AsParameters] GetEmployeesRequest request) =>
         {
             var result = await useCase.GetEmployees(request);
@@ -21,12 +22,12 @@ public sealed class EmployeeEndpoints : ICarterModule
                 error => Results.BadRequest(error));
         })
         .WithTags("Employee")
-        .ConfigureRoute<IEnumerable<GetEmployeesResponse>, Error>(
+        .ConfigureRoute<PagedResult<GetEmployeesResponse>, Error>(
             StatusCodes.Status200OK,
             StatusCodes.Status400BadRequest);
 
         app.MapGet("/api/employee/{id}", async (
-            int id,
+            Guid id,
             [FromServices] IEmployeeRetrievalUseCase useCase) =>
         {
             var result = await useCase.GetEmployee(id);
@@ -54,7 +55,7 @@ public sealed class EmployeeEndpoints : ICarterModule
             StatusCodes.Status400BadRequest);
 
         app.MapPatch("/api/employee/{id}", async (
-            int id,
+            Guid id,
             [FromServices] IEmployeeUpdateUseCase useCase,
             [FromBody] UpdateEmployeeRequest employee) =>
         {
@@ -69,7 +70,7 @@ public sealed class EmployeeEndpoints : ICarterModule
             StatusCodes.Status400BadRequest);
 
         app.MapDelete("/api/employee/{id}", async (
-            int id,
+            Guid id,
             [FromServices] IEmployeeDeletionUseCase useCase) =>
         {
             var result = await useCase.DeleteEmployee(id);

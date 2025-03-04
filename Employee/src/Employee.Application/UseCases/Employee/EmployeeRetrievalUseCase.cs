@@ -1,20 +1,30 @@
 ﻿using Employee.Application.Abstractions;
 using Employee.Application.Interfaces.UseCases;
-using Employee.Application.UseCases.Employee.Requests;
+using Employee.Application.Resources;
 using Employee.Application.UseCases.Employee.Responses;
+using Employee.Domain.Repositories;
 using Employee.Domain.ResultPattern;
+using Mapster;
 
 namespace Employee.Application.UseCases.Employee;
 
-public class EmployeeRetrievalUseCase : UseCaseBase, IEmployeeRetrievalUseCase
+public class EmployeeRetrievalUseCase(
+    IPositionRoleRepository positionRoleRepository,
+    IEmployeeRepository employeeRepository,
+    IPhoneRepository phoneRepository) : UseCaseBase, IEmployeeRetrievalUseCase
 {
-    public Task<Result<GetEmployeeResponse, Error>> GetEmployee(int id)
+    public async Task<Result<GetEmployeeResponse, Error>> GetEmployee(Guid id)
     {
-        throw new NotImplementedException();
-    }
+        var employee = await employeeRepository.Get(id);
+        if (employee is null)
+            return Error.Throw("Employee.NotFound", string.Format(Messages.NotFound, "Funcionário"));
 
-    public Task<Result<IEnumerable<GetEmployeesResponse>, Error>> GetEmployees(GetEmployeesRequest request)
-    {
-        throw new NotImplementedException();
+        var positionRole = await positionRoleRepository.Get(employee.PositionRoleId);
+        employee.Position = positionRole;
+
+        var phones = await phoneRepository.GetByEmployee(employee.Id);
+        employee.Phones = phones;
+
+        return employee.Adapt<GetEmployeeResponse>();
     }
 }

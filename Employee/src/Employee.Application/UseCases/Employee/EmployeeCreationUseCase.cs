@@ -3,16 +3,20 @@ using Employee.Application.Interfaces.UseCases;
 using Employee.Application.Resources;
 using Employee.Application.UseCases.Employee.Requests;
 using Employee.Application.UseCases.Employee.Responses;
+using Employee.Domain.Abstractions.Interfaces;
 using Employee.Domain.Models;
+using Employee.Domain.Repositories;
 using Employee.Domain.ResultPattern;
 using FluentValidation;
 using Mapster;
-using EmployeeModel = Employee.Domain.Models.Employee;
 
 namespace Employee.Application.UseCases.Employee;
 
 public class EmployeeCreationUseCase(
-    IValidator<CreateEmployeeRequest> validator)
+    IValidator<CreateEmployeeRequest> validator,
+    IEmployeeRepository employeeRepository,
+    IUserRepository userRepository,
+    IUnitOfWork unitOfWork)
     : UseCaseBase, IEmployeeCreationUseCase
 {
     public async Task<Result<CreateEmployeeResponse, Error>> AddEmployee(CreateEmployeeRequest request)
@@ -22,24 +26,25 @@ public class EmployeeCreationUseCase(
             return validationResult.GetError();
 
         var model = request.Adapt<EmployeeModel>();
-        model.Position = new(request.PositionRoleId);
         model.Id = Guid.NewGuid();
         model.Active = true;
 
         if (!model.OfLegalAge)
             return Error.Throw("Employee.Underage", Messages.EmployeeUnderage);
 
-        var employeeUser = new User
+        var employeeUser = new UserModel
         {
             Id = Guid.NewGuid(),
             Username = model.Email,
             EmailConfirmed = true,
             Active = true,
-            Employee = model,
+            EmployeeId = model.Id,
             Password = request.Password
         };
 
-        // Save model to database
+        await employeeRepository.Insert(model);
+        await userRepository.Insert(employeeUser);
+        await unitOfWork.Commit();
 
         return new CreateEmployeeResponse
         {

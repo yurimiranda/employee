@@ -4,11 +4,12 @@ using System.Text;
 
 namespace Employee.Domain.Models;
 
-public class User : Entity<Guid>
+public class UserModel : Entity<Guid>
 {
     public string Username { get; set; }
     public bool EmailConfirmed { get; set; }
-    public Employee Employee { get; set; }
+    public Guid EmployeeId { get; set; }
+    public EmployeeModel Employee { get; set; }
 
     public string Password
     {
@@ -16,7 +17,7 @@ public class User : Entity<Guid>
         set => _password = value;
     }
 
-    public bool Verify(string inputPassword)
+    public bool VerifyPassword(string inputPassword)
     {
         var elements = _password.Split(_delimiter);
         var salt = Convert.FromBase64String(elements[0]);
@@ -34,6 +35,9 @@ public class User : Entity<Guid>
 
     private static string HashPassword(string password)
     {
+        if (string.IsNullOrEmpty(password))
+            return null;
+
         var salt = RandomNumberGenerator.GetBytes(_keySize);
         var hash = Rfc2898DeriveBytes.Pbkdf2(
             Encoding.UTF8.GetBytes(password),

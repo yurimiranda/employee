@@ -1,4 +1,4 @@
-﻿using Employee.Infra.CrossCutting.IoC;
+﻿using Employee.Application.Abstractions;
 using Employee.Infra.EFCore.Abstractions;
 using Mapster;
 
@@ -9,7 +9,7 @@ public static class MapsterExtensions
     public static IServiceCollection AddMapsterService(this IServiceCollection services)
     {
         services.AddMapster();
-        TypeAdapterConfig.GlobalSettings.Scan(typeof(ApplicationModule).Assembly, typeof(DtoBase<,>).Assembly);
+        TypeAdapterConfig.GlobalSettings.Scan(typeof(UseCaseBase).Assembly, typeof(DtoBase<,>).Assembly);
         return services;
     }
 }

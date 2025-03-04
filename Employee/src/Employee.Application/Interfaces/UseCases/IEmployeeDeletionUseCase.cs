@@ -5,5 +5,5 @@ namespace Employee.Application.Interfaces.UseCases;
 
 public interface IEmployeeDeletionUseCase
 {
-    Task<Result<DeleteEmployeeResponse, Error>> DeleteEmployee(int id);
+    Task<Result<DeleteEmployeeResponse, Error>> DeleteEmployee(Guid id);
 }

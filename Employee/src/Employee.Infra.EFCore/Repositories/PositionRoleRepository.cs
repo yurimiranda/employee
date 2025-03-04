@@ -4,6 +4,7 @@ using Employee.Infra.EFCore.Abstractions;
 
 namespace Employee.Infra.EFCore.Repositories;
 
-public class PositionRoleRepository(ApplicationDbContext context) : Repository<ApplicationDbContext, PositionRole, int>(context), IPositionRoleRepository
+public class PositionRoleRepository(ApplicationDbContext context)
+    : Repository<ApplicationDbContext, PositionRoleModel, int>(context), IPositionRoleRepository
 {
 }

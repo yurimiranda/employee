@@ -1,4 +1,6 @@
-﻿namespace Employee.Application.UseCases.Employee.Requests;
+﻿using Employee.Application.UseCases.Employee.Base;
+
+namespace Employee.Application.UseCases.Employee.Requests;
 
 public class CreateEmployeeRequest
 {
@@ -12,10 +14,7 @@ public class CreateEmployeeRequest
     public IEnumerable<CreatePhoneRequest> Phones { get; set; }
     public string Password { get; set; }
 
-    public class CreatePhoneRequest
+    public class CreatePhoneRequest : Phone
     {
-        public string AreaCode { get; set; }
-        public string Number { get; set; }
-        public bool IsPrimary { get; set; }
     }
 }

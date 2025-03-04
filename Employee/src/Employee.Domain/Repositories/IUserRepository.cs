@@ -3,6 +3,7 @@ using Employee.Domain.Models;
 
 namespace Employee.Domain.Repositories;
 
-public interface IPositionRoleRepository : IRepository<PositionRoleModel, int>
+public interface IUserRepository : IRepository<UserModel, Guid>
 {
+    Task<UserModel> GetByEmployee(Guid id);
 }
