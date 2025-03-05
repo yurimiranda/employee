@@ -23,7 +23,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Employee.Infra.CrossCutting
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Employee.Infra.EFCore", "src\Employee.Infra.EFCore\Employee.Infra.EFCore.csproj", "{56B0C1CB-0C9C-44AD-AB70-2E36F7782132}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Employee.Infra.Jwt", "Employee.Infra.Jwt\Employee.Infra.Jwt.csproj", "{C86A2070-EF8A-47A4-9717-902C33C2CE79}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Employee.Infra.Jwt", "src\Employee.Infra.Jwt\Employee.Infra.Jwt.csproj", "{C86A2070-EF8A-47A4-9717-902C33C2CE79}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

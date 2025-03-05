@@ -1,4 +1,4 @@
-Será o funcionamento da API, é necessário iniciar um DB Postgres com as seguintes configurações:
+Para o funcionamento da API, é necessário iniciar um DB Postgres com as seguintes configurações:
 ```
 Host: localhost
 Port: 5432
