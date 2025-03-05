@@ -8,7 +8,7 @@ public static class SerilogExtensions
     public static IApplicationBuilder UseLogs(this IApplicationBuilder builder)
     {
         return builder
-            .UseResponseLogging()
+            .UseResponsePreparation()
             .UseSerilogRequestLogging(logConfig =>
             {
                 logConfig.MessageTemplate = "HTTP {RequestMethod} {RequestPath} responded {StatusCode} in {Elapsed:0.0000} ms" + Environment.NewLine + "Body: {RequestBody}" + Environment.NewLine + "Response: {ResponseBody}";

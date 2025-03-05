@@ -2,7 +2,7 @@
 
 public static class ResponseLoggingMiddlewareExtensions
 {
-    public static IApplicationBuilder UseResponseLogging(this IApplicationBuilder app)
+    public static IApplicationBuilder UseResponsePreparation(this IApplicationBuilder app)
     {
         return app.UseMiddleware<ResponseLoggingPreparationMiddleware>();
     }
