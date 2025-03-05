@@ -23,7 +23,7 @@ public class EmployeeUpdateUseCase(
         if (employee is null)
             return Error.Throw("Employee.NotFound", string.Format(Messages.NotFound, "Funcionário"));
 
-        var validationResult = await ValidateRequest(validator, request);
+        var validationResult = await ValidateRequest(validator, request, errorCodePrefix: "UpdateEmployee");
         if (validationResult.IsError)
             return validationResult.GetError();
 

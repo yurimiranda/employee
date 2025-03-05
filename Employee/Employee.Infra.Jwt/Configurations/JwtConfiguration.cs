@@ -1,4 +1,4 @@
-﻿namespace Employee.Infra.CrossCutting.Configurations;
+﻿namespace Employee.Infra.Jwt.Configurations;
 
 public class JwtConfiguration
 {

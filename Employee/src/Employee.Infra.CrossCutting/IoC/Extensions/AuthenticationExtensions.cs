@@ -1,5 +1,5 @@
-﻿using Employee.Infra.CrossCutting.Configurations;
-using Employee.Infra.EFCore;
+﻿using Employee.Infra.EFCore;
+using Employee.Infra.Jwt.Configurations;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
@@ -11,6 +11,8 @@ public static class AuthenticationExtensions
 {
     public static void AddAuthentications(this IServiceCollection services, IConfigurationRoot configuration)
     {
+        services.Configure<JwtConfiguration>(configuration.GetSection(JwtConfiguration.Section));
+
         var jwtConfig = configuration.GetSection(JwtConfiguration.Section).Get<JwtConfiguration>() ?? new();
 
         services.AddJwksManager().PersistKeysToDatabaseStore<ApplicationDbContext>();
@@ -38,9 +40,9 @@ public static class AuthenticationExtensions
                 {
                     var serviceProvider = services.BuildServiceProvider();
                     var lastKeys = serviceProvider.GetRequiredService<IJwtService>().GetLastKeys();
-                    lastKeys.Wait();
-                    return lastKeys.Result.Select(r => r.GetSecurityKey());
-                }
+                    return lastKeys.GetAwaiter().GetResult().Select(r => r.GetSecurityKey());
+                },
+                RoleClaimType = "role"
             };
         });
         services.AddAuthorization();

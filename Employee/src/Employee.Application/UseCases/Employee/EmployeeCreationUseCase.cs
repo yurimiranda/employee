@@ -21,7 +21,7 @@ public class EmployeeCreationUseCase(
 {
     public async Task<Result<CreateEmployeeResponse, Error>> AddEmployee(CreateEmployeeRequest request)
     {
-        var validationResult = await ValidateRequest(validator, request);
+        var validationResult = await ValidateRequest(validator, request, errorCodePrefix: "CreateEmployee");
         if (validationResult.IsError)
             return validationResult.GetError();
 
@@ -36,7 +36,7 @@ public class EmployeeCreationUseCase(
         {
             Id = Guid.NewGuid(),
             Username = model.Email,
-            EmailConfirmed = true,
+            EmailConfirmed = false,
             Active = true,
             EmployeeId = model.Id,
             Password = request.Password,

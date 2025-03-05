@@ -54,7 +54,7 @@ public sealed class EmployeeEndpoints : ICarterModule
             StatusCodes.Status200OK,
             StatusCodes.Status400BadRequest);
 
-        app.MapPatch("/api/employee/{id}", async (
+        app.MapPut("/api/employee/{id}", async (
             Guid id,
             [FromServices] IEmployeeUpdateUseCase useCase,
             [FromBody] UpdateEmployeeRequest employee) =>

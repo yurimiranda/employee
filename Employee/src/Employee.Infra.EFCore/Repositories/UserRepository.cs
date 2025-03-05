@@ -9,6 +9,16 @@ namespace Employee.Infra.EFCore.Repositories;
 public class UserRepository(ApplicationDbContext context)
     : Repository<ApplicationDbContext, UserModel, Guid>(context), IUserRepository
 {
+    public async Task<UserModel> Get(string username)
+    {
+        return await Context.Users
+            .Include(x => x.Employee)
+            .Where(x => x.Username == username)
+            .Where(x => x.EmailConfirmed)
+            .AsNoTracking()
+            .FirstOrDefaultAsync();
+    }
+
     public async Task<UserModel> GetByEmployee(Guid id)
     {
         return await Context.Users

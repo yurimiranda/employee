@@ -165,4 +165,7 @@
   <data name="EmployeeInvalidRole" xml:space="preserve">
     <value>Funcionário não pode possuir permissões superiores que as do usuário logado.</value>
   </data>
+  <data name="InvalidCredentials" xml:space="preserve">
+    <value>Credenciais incorretas. Por favor, verifique-as e tente novamente.</value>
+  </data>
 </root>

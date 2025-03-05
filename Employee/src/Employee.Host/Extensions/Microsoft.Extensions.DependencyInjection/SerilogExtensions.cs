@@ -19,7 +19,7 @@ public static class SerilogExtensions
 
     public static IApplicationBuilder UseLogs(this IApplicationBuilder builder)
     {
-        return builder.UseSerilogRequestLogging(static logConfig =>
+        return builder.UseSerilogRequestLogging(logConfig =>
         {
             logConfig.MessageTemplate = "HTTP {RequestMethod} {RequestPath} responded {StatusCode} in {Elapsed:0.0000} ms" + Environment.NewLine + "Body: {RequestBody}" + Environment.NewLine + "Response: {ResponseBody}";
             logConfig.EnrichDiagnosticContext = (diagnosticContext, httpContext) =>
@@ -29,7 +29,7 @@ public static class SerilogExtensions
                 diagnosticContext.Set("RequestProtocol", httpContext.Request.Protocol);
             };
             logConfig.IncludeQueryInRequestPath = true;
-            logConfig.GetMessageTemplateProperties = static (httpContext, requestPath, elapsedMs, statusCode) =>
+            logConfig.GetMessageTemplateProperties = (httpContext, requestPath, elapsedMs, statusCode) =>
             {
                 var events = new List<LogEventProperty>
                 {
@@ -44,9 +44,8 @@ public static class SerilogExtensions
                     httpContext.Request.EnableBuffering();
                     var reader = new StreamReader(httpContext.Request.Body);
                     var body = reader.ReadToEndAsync();
-                    body.Wait();
                     httpContext.Request.Body.Position = 0;
-                    events.Add(new LogEventProperty("RequestBody", new ScalarValue(body.Result)));
+                    events.Add(new LogEventProperty("RequestBody", new ScalarValue(body.GetAwaiter().GetResult())));
                 }
                 else
                 {
@@ -58,9 +57,8 @@ public static class SerilogExtensions
                     httpContext.Response.Body.Seek(0, SeekOrigin.Begin);
                     var reader = new StreamReader(httpContext.Response.Body);
                     var body = reader.ReadToEndAsync();
-                    body.Wait();
                     httpContext.Response.Body.Seek(0, SeekOrigin.Begin);
-                    events.Add(new LogEventProperty("ResponseBody", new ScalarValue(body.Result)));
+                    events.Add(new LogEventProperty("ResponseBody", new ScalarValue(body.GetAwaiter().GetResult())));
                 }
                 else
                 {

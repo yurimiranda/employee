@@ -16,7 +16,7 @@ public class EmployeePagedRetrievalUseCase(
 {
     public async Task<Result<PagedResult<GetEmployeesResponse>, Error>> GetEmployees(GetEmployeesRequest request)
     {
-        var validationResult = await ValidateRequest(validator, request);
+        var validationResult = await ValidateRequest(validator, request, errorCodePrefix: "GetEmployee");
         if (validationResult.IsError)
             return validationResult.GetError();
 

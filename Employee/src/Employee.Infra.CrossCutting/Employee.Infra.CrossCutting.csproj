@@ -10,10 +10,10 @@
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="10.0.0" />
     <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.11.0" />
     <PackageReference Include="Mapster.DependencyInjection" Version="1.0.1" />
-    <PackageReference Include="NetDevPack.Security.Jwt.AspNetCore" Version="8.2.2" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Employee.Infra.Jwt\Employee.Infra.Jwt.csproj" />
     <ProjectReference Include="..\Employee.Application\Employee.Application.csproj" />
     <ProjectReference Include="..\Employee.Infra.EFCore\Employee.Infra.EFCore.csproj" />
   </ItemGroup>

@@ -32,14 +32,14 @@ public class UserContextMiddleware(
             return;
         }
 
-        var authId = httpContext.User.FindFirst("user_id")?.Value;
-        var cacheKey = "User" + authId;
+        var userId = httpContext.User.FindFirst("user_id")?.Value;
+        var cacheKey = "User" + userId;
         var userContext = await cache.GetOrCreateAsync(
             cacheKey,
             async cacheEntry =>
             {
                 cacheEntry.SlidingExpiration = TimeSpan.FromMinutes(30);
-                return await userIdProvider.GenerateUserContext(authId);
+                return await userIdProvider.GenerateUserContext(userId);
             });
 
         if (userContext is null)
