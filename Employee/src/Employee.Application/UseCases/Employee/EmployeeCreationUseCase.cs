@@ -36,12 +36,17 @@ public class EmployeeCreationUseCase(
         {
             Id = Guid.NewGuid(),
             Username = model.Email,
-            EmailConfirmed = false,
+            EmailConfirmed = true,
             Active = true,
             EmployeeId = model.Id,
             Password = request.Password,
             Role = request.Role
         };
+
+        foreach (var phone in model.Phones)
+        {
+            phone.Active = true;
+        }
 
         await employeeRepository.Insert(model);
         await userRepository.Insert(employeeUser);

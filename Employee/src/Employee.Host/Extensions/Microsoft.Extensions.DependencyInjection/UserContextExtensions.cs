@@ -8,8 +8,8 @@ public static class UserContextExtensions
 {
     public static IServiceCollection AddUserContext(this IServiceCollection services)
     {
-        services.TryAddScoped<IUserContextAccessor, UserContextAccessor>();
-        services.TryAddScoped<IUserContextProvider, UserContextAccessor>();
+        services.TryAddSingleton<IUserContextAccessor, UserContextAccessor>();
+        services.TryAddSingleton<IUserContextProvider, UserContextAccessor>();
         return services;
     }
 }

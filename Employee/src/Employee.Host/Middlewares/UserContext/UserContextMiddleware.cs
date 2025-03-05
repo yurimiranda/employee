@@ -1,4 +1,5 @@
-﻿using Employee.Host.Middlewares.UserContext;
+﻿using Employee.Domain.Services;
+using Employee.Host.Middlewares.UserContext;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Caching.Memory;
 
@@ -15,6 +16,7 @@ public static class UserContextMiddlewareExtensions
 public class UserContextMiddleware(
     RequestDelegate next,
     IUserContextProvider userIdProvider,
+    IUserContextAccessor userContextAccessor,
     ILogger<UserContextMiddleware> logger)
 {
     public async Task Invoke(HttpContext httpContext, IMemoryCache cache)
@@ -50,6 +52,7 @@ public class UserContextMiddleware(
         }
 
         logger.LogDebug("Generated UserContext: {@UserContext}", userContext);
+        userContextAccessor.UserContext = userContext;
 
         await next(httpContext);
     }

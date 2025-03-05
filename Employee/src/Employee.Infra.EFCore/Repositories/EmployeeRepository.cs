@@ -3,12 +3,18 @@ using Employee.Domain.Pagination;
 using Employee.Domain.Repositories;
 using Employee.Infra.EFCore.Abstractions;
 using Employee.Infra.EFCore.Extensions;
+using Microsoft.EntityFrameworkCore;
 
 namespace Employee.Infra.EFCore.Repositories;
 
 public class EmployeeRepository(ApplicationDbContext context)
     : Repository<ApplicationDbContext, EmployeeModel, Guid>(context), IEmployeeRepository
 {
+    public async Task<bool> NotExist(string document, CancellationToken cancellationToken = default)
+    {
+        return !await Context.Employees.AnyAsync(m => m.Document == document, cancellationToken);
+    }
+
     public async Task<PagedResult<EmployeeModel>> GetPaged(string email, string document, int page, int pageSize)
     {
         IQueryable<EmployeeModel> query = Context.Employees;

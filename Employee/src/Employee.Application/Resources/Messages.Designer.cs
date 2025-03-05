@@ -61,7 +61,16 @@ namespace Employee.Application.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Funcionário não pode possuir permissões superiores que as do usuário logado..
+        ///   Looks up a localized string similar to Documento informado já cadastrado..
+        /// </summary>
+        public static string EmployeeDocumentExists {
+            get {
+                return ResourceManager.GetString("EmployeeDocumentExists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Funcionário não pode possuir permissões superiores em relação ao usuário logado..
         /// </summary>
         public static string EmployeeInvalidRole {
             get {

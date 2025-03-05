@@ -7,4 +7,5 @@ namespace Employee.Domain.Repositories;
 public interface IEmployeeRepository : IRepository<EmployeeModel, Guid>
 {
     Task<PagedResult<EmployeeModel>> GetPaged(string email, string document, int page, int pageSize);
+    Task<bool> NotExist(string document, CancellationToken cancellationToken = default);
 }

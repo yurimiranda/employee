@@ -10,7 +10,10 @@ namespace Employee.Application.UseCases.Employee.Validations;
 
 public class CreateEmployeeValidator : AbstractValidator<CreateEmployeeRequest>
 {
-    public CreateEmployeeValidator(IPositionRepository roleRepository, IUserContextAccessor userContext)
+    public CreateEmployeeValidator(
+        IEmployeeRepository employeeRepository,
+        IPositionRepository roleRepository,
+        IUserContextAccessor userContext)
     {
         ClassLevelCascadeMode = CascadeMode.Stop;
 
@@ -28,6 +31,8 @@ public class CreateEmployeeValidator : AbstractValidator<CreateEmployeeRequest>
             .NotEmpty().WithMessage(Messages.NotEmpty)
             .Length(11).WithMessage(string.Format(Messages.Length, "11"))
             .Must(CpfValidation.Validate).WithMessage(Messages.InvalidValue)
+                .When(r => !string.IsNullOrEmpty(r.Document), ApplyConditionTo.CurrentValidator)
+            .MustAsync(employeeRepository.NotExist).WithMessage(Messages.EmployeeDocumentExists)
                 .When(r => !string.IsNullOrEmpty(r.Document), ApplyConditionTo.CurrentValidator);
 
         RuleFor(r => r.ImmediateSupervisor)

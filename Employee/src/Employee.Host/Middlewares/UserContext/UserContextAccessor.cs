@@ -8,7 +8,11 @@ public class UserContextAccessor(IUserRepository userRepository) : IUserContextA
 {
     private static readonly AsyncLocal<UserContextModel> _userContext = new();
 
-    public UserContextModel UserContext => _userContext.Value;
+    public UserContextModel UserContext
+    {
+        get => _userContext.Value;
+        set => _userContext.Value = value;
+    }
 
     public async Task<UserContextModel> GenerateUserContext(string userId)
     {

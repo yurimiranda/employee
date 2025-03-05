@@ -163,9 +163,12 @@
     <value>O valor informado é inválido.</value>
   </data>
   <data name="EmployeeInvalidRole" xml:space="preserve">
-    <value>Funcionário não pode possuir permissões superiores que as do usuário logado.</value>
+    <value>Funcionário não pode possuir permissões superiores em relação ao usuário logado.</value>
   </data>
   <data name="InvalidCredentials" xml:space="preserve">
     <value>Credenciais incorretas. Por favor, verifique-as e tente novamente.</value>
+  </data>
+  <data name="EmployeeDocumentExists" xml:space="preserve">
+    <value>Documento informado já cadastrado.</value>
   </data>
 </root>

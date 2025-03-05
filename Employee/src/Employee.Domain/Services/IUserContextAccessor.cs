@@ -4,5 +4,5 @@ namespace Employee.Domain.Services;
 
 public interface IUserContextAccessor
 {
-    UserContextModel UserContext { get; }
+    UserContextModel UserContext { get; set; }
 }

@@ -10,6 +10,8 @@ namespace Employee.Application.UseCases.Employee;
 
 public class EmployeeDeletionUseCase(
     IEmployeeRepository employeeRepository,
+    IUserRepository userRepository,
+    IPhoneRepository phoneRepository,
     IUnitOfWork unitOfWork) : UseCaseBase, IEmployeeDeletionUseCase
 {
     public async Task<Result<DeleteEmployeeResponse, Error>> DeleteEmployee(Guid id)
@@ -17,6 +19,15 @@ public class EmployeeDeletionUseCase(
         var employee = await employeeRepository.Get(id);
         if (employee is null)
             return Error.Throw("Employee.NotFound", string.Format(Messages.NotFound, "Funcionário"));
+
+        var user = await userRepository.GetByEmployee(id);
+        var phones = await phoneRepository.GetByEmployee(id);
+
+        if (user is not null)
+            await userRepository.Delete(user);
+
+        if (phones.Count != 0)
+            await phoneRepository.DeleteAll(phones);
 
         await employeeRepository.Delete(employee);
         await unitOfWork.Commit();

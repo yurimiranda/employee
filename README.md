@@ -11,3 +11,11 @@ Para rodar as migrations basta apenas executar este comando na raiz do diretóri
 ```
 dotnet ef database update -p .\src\Employee.Infra.EFCore\ -s .\src\Employee.Host\ -v
 ```
+
+Após rodar as migrations é possível fazer um login de teste. Para isso, basta fazer uma requisição POST para o endpoint **/api/signin** com o seguinte payload:
+```
+{
+	"email": "john.doe@example.com",
+	"password": "Teste@1234"
+}
+```

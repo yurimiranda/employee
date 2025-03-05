@@ -16,8 +16,8 @@ public class UserModel : Entity<Guid>
 
     public string Password
     {
-        get => HashPassword(_password);
-        set => _password = value;
+        get => _password;
+        set => _password = HashPassword(value);
     }
 
     public bool VerifyPassword(string inputPassword)
