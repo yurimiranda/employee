@@ -11,7 +11,6 @@ public static class AppBuilderExtensions
             app.UseSwaggerService();
         }
 
-        app.UseCustomExceptionHandler();
         app.UseLogs();
         app.UseCors();
         app.UseHttpsRedirection();

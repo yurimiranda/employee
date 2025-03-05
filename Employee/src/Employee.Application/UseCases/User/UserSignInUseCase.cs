@@ -8,10 +8,12 @@ using Employee.Domain.ResultPattern;
 using Employee.Domain.Services;
 using FluentValidation;
 using Microsoft.Extensions.Caching.Memory;
+using Microsoft.Extensions.Logging;
 
 namespace Employee.Application.UseCases.User;
 
 public class UserSignInUseCase(
+    ILogger<UserSignInUseCase> logger,
     IValidator<UserSignInRequest> validator,
     IUserRepository userRepository,
     ITokenService tokenService,
@@ -19,6 +21,7 @@ public class UserSignInUseCase(
 {
     public async Task<Result<UserSignInResponse, Error>> SignIn(UserSignInRequest request)
     {
+        logger.LogInformation("UserSignInUseCase.SignIn {@Request}", request);
         var validationResult = await ValidateRequest(validator, request, errorCodePrefix: "SignIn.Validation");
         if (validationResult.IsError)
             return validationResult.GetError();

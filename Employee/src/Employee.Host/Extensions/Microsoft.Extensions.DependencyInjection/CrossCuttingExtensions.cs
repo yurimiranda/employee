@@ -19,7 +19,6 @@ public static class CrossCuttingExtensions
         services.AddCarter();
         services.AddSwaggerService();
         services.AddCors(c => c.AddDefaultPolicy(d => d.AllowAnyMethod().AllowAnyHeader().AllowAnyOrigin().SetIsOriginAllowed(o => true)));
-        services.AddLogs(configuration);
         services.AddValidation();
         services.AddMapsterService();
         services.AddAuthentications(configuration);
