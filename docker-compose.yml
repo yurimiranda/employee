@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  employee-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    depends_on:
+      - db
+    networks:
+      - mynet
+
+  db:
+    image: postgres:latest
+    hostname: postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 123456
+      POSTGRES_DB: employeedb
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - mynet
+
+volumes:
+  postgres_data:
+
+networks:
+  mynet:
+    driver: bridge
