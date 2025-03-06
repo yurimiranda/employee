@@ -187,6 +187,15 @@ namespace Employee.Application.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Referência de objeto do request está null..
+        /// </summary>
+        public static string NullRequest {
+            get {
+                return ResourceManager.GetString("NullRequest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to O campo deve conter números..
         /// </summary>
         public static string NumbersRequired {

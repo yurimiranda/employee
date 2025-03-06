@@ -171,4 +171,7 @@
   <data name="EmployeeDocumentExists" xml:space="preserve">
     <value>Documento informado já cadastrado.</value>
   </data>
+  <data name="NullRequest" xml:space="preserve">
+    <value>Referência de objeto do request está null.</value>
+  </data>
 </root>

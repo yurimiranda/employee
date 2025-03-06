@@ -1,12 +1,16 @@
-﻿using Employee.Domain.ResultPattern;
+﻿using Employee.Application.Resources;
+using Employee.Domain.ResultPattern;
 using FluentValidation;
 
 namespace Employee.Application.Abstractions;
 
 public abstract class UseCaseBase
 {
-    protected static async Task<Result<TRequest, Error>> ValidateRequest<TRequest>(IValidator<TRequest> validator, TRequest request, string errorCodePrefix = "ValidationError")
+    protected static async Task<Result<TRequest, Error>> ValidateRequest<TRequest>(IValidator<TRequest> validator, TRequest request, string errorCodePrefix = "ValidationError") where TRequest : class
     {
+        if (request == null)
+            return Error.Throw(errorCodePrefix + ".NullRequest", Messages.NullRequest);
+
         var validationResult = await validator.ValidateAsync(request);
         if (!validationResult.IsValid)
         {

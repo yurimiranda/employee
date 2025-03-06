@@ -44,7 +44,7 @@ public sealed class EmployeeEndpoints : ICarterModule
             [FromServices] IEmployeeCreationUseCase useCase,
             [FromBody] CreateEmployeeRequest employee) =>
         {
-            var result = await useCase.AddEmployee(employee);
+            var result = await useCase.CreateEmployee(employee);
             return result.Match(
                 response => Results.Ok(response),
                 error => Results.BadRequest(error));

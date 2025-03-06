@@ -6,5 +6,5 @@ namespace Employee.Application.Interfaces.UseCases;
 
 public interface IEmployeeCreationUseCase
 {
-    Task<Result<CreateEmployeeResponse, Error>> AddEmployee(CreateEmployeeRequest request);
+    Task<Result<CreateEmployeeResponse, Error>> CreateEmployee(CreateEmployeeRequest request);
 }

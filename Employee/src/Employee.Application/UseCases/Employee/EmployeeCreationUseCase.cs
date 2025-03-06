@@ -19,7 +19,7 @@ public class EmployeeCreationUseCase(
     IUnitOfWork unitOfWork)
     : UseCaseBase, IEmployeeCreationUseCase
 {
-    public async Task<Result<CreateEmployeeResponse, Error>> AddEmployee(CreateEmployeeRequest request)
+    public async Task<Result<CreateEmployeeResponse, Error>> CreateEmployee(CreateEmployeeRequest request)
     {
         var validationResult = await ValidateRequest(validator, request, errorCodePrefix: "CreateEmployee");
         if (validationResult.IsError)
