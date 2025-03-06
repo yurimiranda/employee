@@ -30,7 +30,7 @@ public static class EfCoreMigrationsExtensions
             }
             catch (Exception ex)
             {
-                Log.Error(ex, "Ocorreu um erro ao aplicar as migrations. Tentativa {Attempt} of {RetryCount}", i + 1, retryCount);
+                Log.Error(ex, "Ocorreu um erro ao aplicar as migrations. Tentativa {Attempt} de {RetryCount}", i + 1, retryCount);
                 if (i == retryCount - 1)
                     throw;
 
