@@ -3,7 +3,7 @@ Para executar a aplicação basta apenas executar os seguintes comandos:
 # Construir a imagem Docker
 docker-compose build
 
-# Executar os contêineres
+# Executar os containers
 docker-compose up
 ```
 
