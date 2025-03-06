@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Serilog;
+﻿using Serilog;
 using Serilog.Events;
 using System.Text.Json;
 
