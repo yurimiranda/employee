@@ -8,7 +8,7 @@ public static class EfCoreMigrationsExtensions
 {
     public static void ApplyMigrations(this WebApplication app)
     {
-        if (!app.Environment.IsDevelopment())
+        if (app.Environment.IsProduction())
             return;
 
         using var scope = app.Services.CreateScope();
